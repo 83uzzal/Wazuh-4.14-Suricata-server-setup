@@ -35,7 +35,65 @@ The solution is designed for **SOC labs, SIEM practice, Blue Team training, and 
 ## 🚀 Installation Steps
 
 ### 1️⃣ Clone the repository
-```bash
 git clone https://github.com/83uzzal/Wazuh-4.14-Suricata-server-setup.git
+
+### 2️⃣ Navigate to the repository directory
 cd Wazuh-4.14-Suricata-server-setup
+
+### 3️⃣ Make the installation script executable
+chmod +x wazuh_suricata_install.sh
+
+### 4️⃣ Run the installation script
+sudo ./wazuh_suricata_install.sh
+
+### 5️⃣ Follow the on-screen prompts
+
+The script will automatically install and configure Wazuh Manager, Indexer, Dashboard, and Suricata IDS
+
+After completion, it will display the Dashboard URL, Username, and Auto-generated password
+
+
+🔑 Dashboard Access
+After installation, the script will display:
+
+🌐 Dashboard URL
+👤 Username: admin
+🔐 Auto-generated Password
+
+    https://<server-ip>
+     Username: admin
+    Password: ********
+
+🧠 What the Script Does Internally
+Adds official Wazuh repositories
+Installs:
+    Wazuh Manager
+    Wazuh Indexer
+    Wazuh Dashboard
+Enables and validates required systemd services
+Installs Suricata IDS from Ubuntu repositories
+Runs suricata-update to download and update rules
+Configures Suricata EVE JSON logging
+Integrates Suricata logs with Wazuh Manager
+Performs health checks and service validation
+
+⚠️ Important Notes
+❌ Do NOT install Wazuh Agent on the same server
+✅ Ensure the correct network interface name (default: ens33)
+
+
+📌 Use Cases
+SOC Lab Environment
+SIEM Practice & Learning
+IDS + SIEM Correlation
+Blue Team Training
+Cybersecurity Interview Demonstration Project
+
+📜 License
+This project is licensed under the MIT License.
+
+
+👨💻 Author  
+    Md. Alamgir Hasan
+    Cybersecurity | SOC | SIEM | Blue Team
 
