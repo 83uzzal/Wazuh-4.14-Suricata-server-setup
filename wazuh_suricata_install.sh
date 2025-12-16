@@ -68,11 +68,15 @@ EOF
 # ---------------------------
 # Integrate Suricata eve.json logs with Wazuh (idempotent)
 # ---------------------------
-LOCALFILE_BLOCK="<localfile>\n  <log_format>json</log_format>\n  <location>/var/log/suricata/eve.json</location>\n</localfile>"
-
 if ! grep -q "/var/log/suricata/eve.json" /var/ossec/etc/ossec.conf; then
-    sudo sed -i "/<\/ossec_config>/i $(echo "$LOCALFILE_BLOCK" | sed 's/[&/\]/\\&/g')" /var/ossec/etc/ossec.conf
+sudo tee -a /var/ossec/etc/ossec.conf > /dev/null <<'EOF'
+<localfile>
+  <log_format>json</log_format>
+  <location>/var/log/suricata/eve.json</location>
+</localfile>
+EOF
 fi
+
 
 
 # Enable & start Suricata service
