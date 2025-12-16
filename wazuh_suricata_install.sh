@@ -55,31 +55,30 @@ sudo suricata-update
 
 # Set default-rule-path and rule-files
 sudo sed -i 's|^default-rule-path:.*|default-rule-path: /var/lib/suricata/rules|' /etc/suricata/suricata.yaml
-
 sudo sed -i '/^rule-files:/,$d' /etc/suricata/suricata.yaml
-
 sudo tee -a /etc/suricata/suricata.yaml > /dev/null <<'EOF'
 
 rule-files:
   - "*.rules"
 EOF
 
-
 # ---------------------------
 # Integrate Suricata eve.json logs with Wazuh (idempotent)
 # ---------------------------
 log "Integrating Suricata logs with Wazuh"
 
-LOCALFILE_BLOCK="<localfile>
+if ! grep -q "/var/log/suricata/eve.json" /var/ossec/etc/ossec.conf; then
+sudo tee -a /var/ossec/etc/ossec.conf > /dev/null <<'EOF'
+<localfile>
   <log_format>json</log_format>
   <location>/var/log/suricata/eve.json</location>
-</localfile>"
-
-if ! grep -q "/var/log/suricata/eve.json" /var/ossec/etc/ossec.conf; then
-    sudo sed -i "/<\/ossec_config>/i $LOCALFILE_BLOCK" /var/ossec/etc/ossec.conf
+</localfile>
+EOF
 fi
 
+# ---------------------------
 # Enable & start Suricata service
+# ---------------------------
 sudo systemctl daemon-reload
 sudo systemctl enable suricata
 sudo systemctl restart suricata
