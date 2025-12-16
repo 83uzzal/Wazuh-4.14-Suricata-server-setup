@@ -53,6 +53,19 @@ sudo sed -i "/af-packet:/,+5 s/cluster-id:.*/cluster-id: 99/" /etc/suricata/suri
 log "Updating Suricata rules"
 sudo suricata-update
 
+# ---------------------------
+# Integrate Suricata eve.json logs with Wazuh
+# ---------------------------
+log "Integrating Suricata logs with Wazuh"
+
+if ! grep -q "/var/log/suricata/eve.json" /var/ossec/etc/ossec.conf; then
+  sudo sed -i '/<\/ossec_config>/i \
+  <localfile>\n\
+    <log_format>json</log_format>\n\
+    <location>/var/log/suricata/eve.json</location>\n\
+  </localfile>' /var/ossec/etc/ossec.conf
+fi
+
 # Enable & start Suricata service
 sudo systemctl daemon-reload
 sudo systemctl enable suricata
