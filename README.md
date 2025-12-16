@@ -97,7 +97,7 @@ Cybersecurity Interview Demonstration Project
 This project is licensed under the MIT License.
 
 
-### 👨💻 Author  
-   ### Md. Alamgir Hasan
-    Cybersecurity | SOC | SIEM | Blue Team
+## 👨💻 Author  
+## Md. Alamgir Hasan
+Cybersecurity | SOC | SIEM | Blue Team
 
