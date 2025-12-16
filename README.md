@@ -4,6 +4,10 @@ This repository provides a **production-ready Bash installation script** to depl
 
 The solution is designed for **SOC labs, SIEM practice, Blue Team training, and enterprise-style server deployments**, with a strong focus on **automation, stability, and clean log integration**.
 
+<img width="948" height="622" alt="image" src="https://github.com/user-attachments/assets/b199a2b4-764b-40d4-820d-e66402af002d" />
+
+
+
 ---
 
 ## 🔐 Components Installed
