@@ -66,15 +66,18 @@ EOF
 
 
 # ---------------------------
-# Integrate Suricata eve.json logs with Wazuh (idempotent)
+# Integrate Suricata eve.json logs with Wazuh (idempotent, inside <ossec_config>)
 # ---------------------------
-if ! grep -q "/var/log/suricata/eve.json" /var/ossec/etc/ossec.conf; then
-sudo tee -a /var/ossec/etc/ossec.conf > /dev/null <<'EOF'
-<localfile>
+OSSEC_CONF="/var/ossec/etc/ossec.conf"
+SURICATA_BLOCK="<localfile>
   <log_format>json</log_format>
   <location>/var/log/suricata/eve.json</location>
-</localfile>
-EOF
+</localfile>"
+
+# Only add if not already present
+if ! grep -q "/var/log/suricata/eve.json" "$OSSEC_CONF"; then
+    # Insert just before </ossec_config> so it's inside the root element
+    sudo sed -i "/<\/ossec_config>/i $SURICATA_BLOCK" "$OSSEC_CONF"
 fi
 
 
