@@ -53,6 +53,18 @@ sudo sed -i "/af-packet:/,+5 s/cluster-id:.*/cluster-id: 99/" /etc/suricata/suri
 log "Updating Suricata rules"
 sudo suricata-update
 
+# Set default-rule-path and rule-files
+sudo sed -i 's|^default-rule-path:.*|default-rule-path: /var/lib/suricata/rules|' /etc/suricata/suricata.yaml
+
+if ! grep -q 'rule-files:' /etc/suricata/suricata.yaml; then
+  sudo tee -a /etc/suricata/suricata.yaml > /dev/null <<'EOF'
+
+rule-files:
+  - "*.rules"
+EOF
+fi
+
+
 # ---------------------------
 # Integrate Suricata eve.json logs with Wazuh
 # ---------------------------
