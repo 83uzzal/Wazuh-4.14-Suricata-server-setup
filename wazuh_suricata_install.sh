@@ -56,13 +56,13 @@ sudo suricata-update
 # Set default-rule-path and rule-files
 sudo sed -i 's|^default-rule-path:.*|default-rule-path: /var/lib/suricata/rules|' /etc/suricata/suricata.yaml
 
-if ! grep -q 'rule-files:' /etc/suricata/suricata.yaml; then
-  sudo tee -a /etc/suricata/suricata.yaml > /dev/null <<'EOF'
+sudo sed -i '/^rule-files:/,$d' /etc/suricata/suricata.yaml
+
+sudo tee -a /etc/suricata/suricata.yaml > /dev/null <<'EOF'
 
 rule-files:
   - "*.rules"
 EOF
-fi
 
 
 # ---------------------------
