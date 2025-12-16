@@ -65,7 +65,7 @@ After installation, the script will display:
 🔐 Auto-generated Password
 
     https://<server-ip>
-     Username: admin
+    Username: admin
     Password: ********
 
 🧠 What the Script Does Internally
@@ -93,11 +93,11 @@ IDS + SIEM Correlation
 Blue Team Training
 Cybersecurity Interview Demonstration Project
 
-📜 License
+📜 License :
 This project is licensed under the MIT License.
 
 
-👨💻 Author  
-    Md. Alamgir Hasan
+### 👨💻 Author  
+   ### Md. Alamgir Hasan
     Cybersecurity | SOC | SIEM | Blue Team
 
