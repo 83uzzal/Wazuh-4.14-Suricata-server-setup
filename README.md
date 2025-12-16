@@ -94,6 +94,8 @@ After completion, it will display the Dashboard URL, Username, and Auto-generate
 - ❌ Do NOT install Wazuh Agent on the same server
 - ✅ Ensure the correct network interface name (default: ens33)
 
+<img width="1366" height="637" alt="image" src="https://github.com/user-attachments/assets/4c6a7fc0-3827-4721-a9fa-99f0e76bf72b" />
+
  
 ### 📌 Use Cases
 - SOC Lab Environment
