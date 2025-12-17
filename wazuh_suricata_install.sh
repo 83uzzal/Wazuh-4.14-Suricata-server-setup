@@ -66,24 +66,26 @@ EOF
 
 
 # ---------------------------
-# Integrate Suricata eve.json logs with Wazuh (safe & idempotent)
+# Integrate Suricata eve.json logs with Wazuh
+# Insert AFTER journald localfile (safe & idempotent)
 # ---------------------------
-OSSEC_CONF="/var/ossec/etc/ossec.conf"
-TMP_BLOCK="/tmp/suricata_wazuh_block.xml"
 
-cat <<'EOF' > "$TMP_BLOCK"
+OSSEC_CONF="/var/ossec/etc/ossec.conf"
+
+SURICATA_BLOCK=$(cat <<'EOF'
+
   <localfile>
     <log_format>json</log_format>
     <location>/var/log/suricata/eve.json</location>
   </localfile>
 EOF
+)
 
-# Only add if not already present
+# Add only if not already present
 if ! grep -q "/var/log/suricata/eve.json" "$OSSEC_CONF"; then
-    sudo sed -i "/<\/ossec_config>/r $TMP_BLOCK" "$OSSEC_CONF"
+    sudo sed -i "/<location>journald<\/location>/a $SURICATA_BLOCK" "$OSSEC_CONF"
 fi
 
-rm -f "$TMP_BLOCK"
 
 
 
