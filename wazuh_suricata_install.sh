@@ -66,7 +66,22 @@ EOF
 
 
 # ---------------------------
-# Integrate Suricata eve.json logs with Wazuh
+# Integrate Suricata eve.json logs with Wazuh (idempotent)
+# ---------------------------
+OSSEC_CONF="/var/ossec/etc/ossec.conf"
+SURICATA_BLOCK="<localfile>
+  <log_format>json</log_format>
+  <location>/var/log/suricata/eve.json</location>
+</localfile>"
+
+# Add block only if not already present
+if ! grep -q "/var/log/suricata/eve.json" "$OSSEC_CONF"; then
+    # Insert just before </ossec_config>
+    sudo sed -i "/<\/ossec_config>/i $SURICATA_BLOCK" "$OSSEC_CONF"
+    log "Added Suricata eve.json log integration to ossec.conf"
+else
+    log "Suricata eve.json already integrated in ossec.conf"
+fi
 
 # Enable & start Suricata service
 sudo systemctl daemon-reload
